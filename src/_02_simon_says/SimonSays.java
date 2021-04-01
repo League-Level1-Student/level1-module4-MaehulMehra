@@ -49,16 +49,36 @@ public class SimonSays extends KeyAdapter {
 
 	public void keyPressed(KeyEvent e) {
 		// 15. Make a points variable to track the score.
-		
+		int points = 0;
 		// 16. If the keyCode matches the imageIndex and "Simon says"
-
+		if (e.getKeyCode() == imageIndex && simonSays) {
+			points ++;
+			speak ("You were correct");
+		}
+		else if (e.getKeyCode() != imageIndex && !simonSays){
+			points ++;
+			speak ("You were correct");
+		}
+		else if (e.getKeyCode () != imageIndex && simonSays) {
+			speak ("You're wrong");
+		}
+		else if (e.getKeyCode () == imageIndex && !simonSays) {
+			speak ("You're wrong");
+		}
+		tries ++;
+		if (tries == 10) {
+			speak ("Your score is " + points);
+			System.exit(0);
+		}
+		frame.dispose ();
+		showImage ();
 		// 17. Increase the value of score
-
+		
 		// 18. Use the speak method to tell the user they were correct
 
 		// 19. If the keyCode doesn't match the imageIndex and "Simon didn't
 		// say..."
-
+		
 		// 20. Increase the value of score
 
 		// 21. Use the speak method to tell the user they were correct
