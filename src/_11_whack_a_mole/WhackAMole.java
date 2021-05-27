@@ -11,14 +11,18 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class WhackAMole implements ActionListener {
-	JFrame frame = new JFrame ("Whack a Button for Fame and Glory");
-	JPanel panel = new JPanel ();
+	JFrame frame;
+	JPanel panel; 
 	JButton [] buttons = new JButton [24];
 	Random ran = new Random ();
-	int mole = ran.nextInt(24);
+	int mole;	
 	int moleClicked = 0;
+	int moleMissed = 0;
+	Date time = new Date ();
 	void drawButtons (){
 		mole = ran.nextInt(24);
+		frame = new JFrame ("Whack a Button for Fame and Glory");
+		panel = new JPanel ();
 		for (int i = 0; i < buttons.length; i ++) {
 			buttons [i] = new JButton (); 
 			panel.add(buttons [i]);
@@ -57,15 +61,21 @@ public class WhackAMole implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		JButton buttonPressed = (JButton) arg0.getSource();
 		if (buttons[mole] != buttonPressed) {
-			//speak ("You missed");
-			frame.dispose();
-			drawButtons ();
+			speak ("You missed");
+			moleMissed ++;
 		}
 		else if (buttons [mole] == buttonPressed) {
 			moleClicked ++;
-			frame.dispose();
-			drawButtons();
 		}
+		if (moleClicked ==10) {
+			endGame (time, moleClicked);
+		}
+		else if (moleMissed == 5) {
+			endGame (time, moleMissed);
+			speak ("Get better");
+		}
+		frame.dispose();
+		drawButtons ();
 		// TODO Auto-generated method stub
 		
 	}
